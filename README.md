@@ -1,4 +1,4 @@
-# MedGuideAI with Appointment Scheduling & Emergency Routing
+# MedGuideAI
 
 
 ## Overview
