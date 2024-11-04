@@ -50,7 +50,7 @@ MedGuideAI is an AI-powered healthcare assistant designed to provide information
 
 1. **Start Chainlit Interface**:
     ```bash
-    chainlit run MedChatbot.py -w
+    chainlit run app.py -w
     ```
 
 2. **Chat Commands**:
