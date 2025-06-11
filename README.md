@@ -1,115 +1,153 @@
-# MedGuideAI
+# 🧠💉 MedGuideAI: Your AI-Powered Healthcare Assistant
 
+*"An intelligent companion for your health journey."*
 
-## Overview
+Revolutionizing healthcare with AI-driven insights, appointment scheduling, and emergency response.
 
-MedGuideAI is an AI-powered healthcare assistant designed to provide information on various medical topics, book appointments with doctors, and provide emergency routes to nearby hospitals. The chatbot leverages **LangChain**, **Hugging Face Embeddings**, **Pinecone**, and **Google APIs** to enhance patient experience and streamline healthcare services.
+---
 
-## Features
+## 🔍 What is MedGuideAI?
 
-- **Medical Information Retrieval**: Answers questions based on a dataset of medical information stored in PDF files.
-- **Doctor Appointment Scheduling**: Integrates with Google Calendar to check doctor availability, schedule appointments, and send reminders.
-- **Emergency Routing to Hospitals**: Uses Google Maps to find and provide routes to the nearest hospital in case of emergencies.
-- **User-Friendly Chat Interface**: Built with Chainlit for a streamlined conversation experience.
+**MedGuideAI** is a next-gen, AI-powered healthcare assistant that answers medical queries, books appointments with doctors, and guides you to the nearest hospital in emergencies — all through a conversational interface.
 
-## Setup
+Built using **LangChain**, **Hugging Face Embeddings**, **Pinecone**, **Google APIs**, and **Chainlit** to deliver a seamless patient experience.
 
-### Prerequisites
+---
+
+## 🚀 Key Features
+
+| Capability                  | Description                                                        |
+|-----------------------------|--------------------------------------------------------------------|
+| 🩺 Medical Q&A              | Retrieves answers from medical PDFs using semantic search           |
+| 📅 Doctor Appointment       | Checks doctor availability and books appointments via Google Calendar|
+| 🚑 Emergency Routing        | Finds nearest hospitals and navigates using Google Maps             |
+| 💬 AI Chat Interface        | Built with Chainlit for clean and conversational interactions       |
+
+---
+
+## 🏗️ Project Architecture
+
+```mermaid
+flowchart LR
+    User -->|asks| Chainlit_UI
+    Chainlit_UI --> LangChain
+    LangChain --> Embedding_Model
+    Embedding_Model --> Pinecone_DB
+    LangChain -->|appointment| Google_Calendar
+    LangChain -->|emergency| Google_Maps
+    subgraph APIs
+        Google_Calendar
+        Google_Maps
+    end
+```
+
+---
+
+## ⚙️ Getting Started
+
+### 🔧 Prerequisites
 
 - Python 3.8+
-- [Google Cloud API Key](https://cloud.google.com/docs/authentication/getting-started)
-- Pinecone API Key (for embeddings and document storage)
-- Hugging Face Embeddings model
+- Google Cloud API Key
+- Pinecone API Key
+- Hugging Face Token (for embeddings)
 
-### Installation
+### 📥 Installation
 
-1. **Clone the Repository**:
-    ```bash
-    git clone https://github.com/Poojitha319/MedGuideAI.git
-    cd MedGuideAI
-    ```
+```bash
+git clone https://github.com/Poojitha319/MedGuideAI.git
+cd MedGuideAI
+pip install -r requirements.txt
+```
 
-2. **Install Dependencies**:
-    ```bash
-    pip install -r requirements.txt
-    ```
+### 🔐 Set Environment Variables
 
-3. **Environment Setup**:
-   - Set up your Google API and Pinecone keys in the environment variables or in the `.env` file:
-    ```bash
-    export PINECONE_API_KEY="your_pinecone_api_key"
-    export GOOGLE_MAPS_API_KEY="your_google_maps_api_key"
-    ```
+Create a `.env` file or set them in your terminal:
 
-4. **Load Medical Data**:
-   - Place your PDF files in a directory (e.g., `./content`) to be processed by the chatbot for medical information retrieval.
+```bash
+export PINECONE_API_KEY="your_pinecone_api_key"
+export GOOGLE_API_KEY="your_google_api_key"
+export GOOGLE_MAPS_API_KEY="your_google_maps_api_key"
+export HUGGINGFACEHUB_API_TOKEN="your_huggingface_token"
+```
 
-## Usage
+---
 
-### Running the Chatbot Locally
+## 🩻 How It Works
 
-1. **Start Chainlit Interface**:
-    ```bash
-    chainlit run app.py -w
-    ```
+### 🧠 Medical Information Retrieval
 
-2. **Chat Commands**:
-   - **Ask Medical Questions**: Type in any health-related question.
-   - **Schedule an Appointment**: Enter “book an appointment with Dr. [name]” to check availability and schedule.
-   - **Request Emergency Route**: Type “emergency route” to get directions to the nearest hospital.
+- Upload PDF medical resources.
+- Questions are semantically searched using LangChain + Pinecone.
+- Responses are context-aware and relevant.
 
-## Project Modules
+### 🩺 Doctor Appointment Scheduling
 
-### 1. Medical Information Retrieval
+- Integrated with Google Calendar API.
+- Users can:
+  - 🔍 Check doctor availability
+  - ✅ Book slots
+  - 🔔 Get reminders
 
-The chatbot can answer medical questions by processing data stored in PDF files. It uses **LangChain** for embeddings and **Pinecone** for efficient data retrieval.
+### 🚨 Emergency Routing System
 
-### 2.Doctor Appointment Scheduling
+- Get nearest hospitals using Google Maps + Places API.
+- View:
+  - 📍 Directions
+  - 🕒 Estimated time
+  - 🚘 Route on map
 
-MedGuideAI integrates with Google Calendar to facilitate appointment scheduling. Users can easily book appointments with doctors by checking their availability and confirming the appointment through the chatbot.
+### 💬 Chat Interface (Chainlit)
 
-#### Features
+- Built using Chainlit for fast prototyping.
+- Intuitive and interactive.
 
-- Check doctor availability
-- Schedule appointments
-- Send reminders
+To run:
 
-#### Setup
+```bash
+chainlit run app.py -w
+```
 
-1. **Google Calendar API**:
-   - Ensure you have access to the Google Calendar API and obtain the necessary credentials.
-   - Store your credentials securely and set the environment variable for the API key.
+---
 
-2. **Environment Variable**:
-   - Set your Google API credentials in the environment variables or in a `.env` file:
-    ```bash
-    export GOOGLE_API_KEY="your_google_api_key"
-    ```
-### 3.Emergency Routing to Hospitals
+## 📦 Directory Structure
 
-The MedChatbot includes an emergency routing feature that assists users in finding the quickest route to the nearest hospital in case of emergencies. This feature leverages location services and mapping APIs to provide real-time navigation assistance.
+```
+MedGuideAI/
+├── app.py               # Main Chainlit app
+├── utils/               # Modular utilities (calendar, maps, QnA)
+├── content/             # PDF data source
+├── .env                 # API keys
+├── requirements.txt
+└── README.md
+```
 
-#### Features
+---
 
-- Locate the nearest hospitals based on the user's current location.
-- Provide step-by-step directions to the selected hospital.
-- Display estimated travel time and distance.
+## 🔮 Future Roadmap
 
-#### Setup
+- 💊 Medication Reminders
+- 📂 Medical Record Integration
+- 🤒 Symptom Checker
+- 🔒 HIPAA/GDPR Compliance
 
-1. **Google Maps API**:
-   - Obtain an API key from Google Cloud Console for the Google Maps Directions API and Places API.
-   - Store your credentials securely and set the environment variable for the API key.
+---
 
-2. **Environment Variable**:
-   - Set your Google Maps API key in the environment variables or in a `.env` file:
-    ```bash
-    export GOOGLE_MAPS_API_KEY="your_google_maps_api_key"
-    ```
-### 4. Chainlit Chat Interface
-A streamlined interface using Chainlit to enhance user experience. It handles inputs, processes requests for medical information, appointments, and emergency routing.
-### Future Enhancements
-- Medication Reminders: Set reminders for medications.
-- Medical Record Access: Allow users to upload and access personal health records.
-- Symptoms Checker: Integrate a symptom-checking feature to provide preliminary diagnostics.
+## 🧑‍🔬 Use Cases
 
+- Healthcare Startups 🏥
+- Personal Health Monitoring 📋
+- Elderly Care Solutions 👵👴
+- Rural/Remote Medical Access 🌐
+
+---
+
+## 📄 License
+
+This project is licensed for research and educational use.
+
+---
+
+## 🤝 Contributions
+
+We welcome contributions! Feel free to open issues or submit PRs for improvements, new features, or bug fixes.
